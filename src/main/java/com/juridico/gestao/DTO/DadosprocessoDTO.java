@@ -6,10 +6,10 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 public record DadosprocessoDTO(
-         Long id,
+         Integer id,
 
         String status,
-        @NotNull Long numeroCnj,
+        @NotNull Integer numeroCnj,
         String area,
         String parteCliente,
         String tipoCliente,

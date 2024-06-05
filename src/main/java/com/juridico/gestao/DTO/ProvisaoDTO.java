@@ -5,8 +5,8 @@ import com.juridico.gestao.Entity.Provisao;
 import java.util.Date;
 
 public record ProvisaoDTO(
-        Long id,
-        Long numeroCnj,
+        Integer id,
+        Integer numeroCnj,
         String area,
         String adversa,
         String status,

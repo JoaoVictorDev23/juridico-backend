@@ -15,13 +15,21 @@ public class Riscos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long numeroCnj;
+    private Integer id;
+
+    @Column(name="numero_cnj")
+    private Integer numeroCnj;
+
     private Double riscoMinimo;
+
     private Double riscoRemoto;
+
     private Double riscoPossivel;
+
     private Double riscoProvavel;
+
     private Double riscoMaximo;
+
     private Double riscoEstimado;
 
     public Riscos(RiscosDTO riscosDTO){

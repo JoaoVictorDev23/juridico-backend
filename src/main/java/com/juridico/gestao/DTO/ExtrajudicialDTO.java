@@ -3,6 +3,7 @@ package com.juridico.gestao.DTO;
 import com.juridico.gestao.Entity.Extrajudicial;
 
 public record ExtrajudicialDTO(
+        Integer numeroCnj,
         String anoCobranca,
         String anoQUitacao,
         String modalidade,
@@ -17,9 +18,9 @@ public record ExtrajudicialDTO(
 ) {
 
     public ExtrajudicialDTO(Extrajudicial extrajudicial){
-        this(extrajudicial.getAnoCobranca(), extrajudicial.getAnoQuitacao(), extrajudicial.getModalidade(),
-                extrajudicial.getEmpresa(), extrajudicial.getAdversa(), extrajudicial.getValorCobrado(),
-                extrajudicial.getSaldoRecebidoAnterior(), extrajudicial.getSaldoAreceber(), extrajudicial.getDescontos(),
-                extrajudicial.getTotalRecebido(), extrajudicial.getStatus());
+        this(extrajudicial.getNumeroCnj(),       extrajudicial.getAnoCobranca(),           extrajudicial.getAnoQuitacao(),
+                extrajudicial.getModalidade(),   extrajudicial.getEmpresa(),               extrajudicial.getAdversa(),
+                extrajudicial.getValorCobrado(), extrajudicial.getSaldoRecebidoAnterior(), extrajudicial.getSaldoAreceber(),
+                extrajudicial.getDescontos(),    extrajudicial.getTotalRecebido(),         extrajudicial.getStatus());
     }
 }

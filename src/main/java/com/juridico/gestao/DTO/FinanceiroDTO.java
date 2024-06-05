@@ -6,8 +6,8 @@ import com.juridico.gestao.Entity.Financeiro;
 import java.util.List;
 
 public record FinanceiroDTO(
-        Long id,
-        Long numeroCnj,
+        Integer id,
+        Integer numeroCnj,
         List<Conta> contas
 ) {
     public FinanceiroDTO(Financeiro financeiro){

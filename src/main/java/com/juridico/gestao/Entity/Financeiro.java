@@ -18,10 +18,10 @@ public class Financeiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true)
-    private Long numeroCnj;
+    private Integer numeroCnj;
 
     @OneToMany(cascade = CascadeType.ALL)
     public List<Conta> contas;

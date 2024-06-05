@@ -2,13 +2,12 @@ package com.juridico.gestao.services.Dadosprocessos;
 
 import com.juridico.gestao.DTO.*;
 import com.juridico.gestao.Entity.Dadosprocesso;
-import com.juridico.gestao.Entity.Extrajudicial;
-import com.juridico.gestao.Entity.Financeiro;
-import com.juridico.gestao.Entity.Riscos;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public interface Dadosprocessos {
+public interface DadosprocessoService {
 
     void createDados(DadosprocessoDTO dadosprocesso);
     void updateDados(DadosprocessoDTO dadosprocessoDTO);
@@ -20,5 +19,8 @@ public interface Dadosprocessos {
     void updateFinanceiro(FinanceiroDTO financeiroDTO);
 
     void UpdateExtrajudicial(ExtrajudicialDTO extrajudicial);
+
+    List<Dadosprocesso> getAllProcessos();
+
 
 }

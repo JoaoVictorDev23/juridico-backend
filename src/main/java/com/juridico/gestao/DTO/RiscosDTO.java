@@ -3,7 +3,7 @@ package com.juridico.gestao.DTO;
 import com.juridico.gestao.Entity.Riscos;
 
 public record RiscosDTO(
-        Long numeroCnj,
+        Integer numeroCnj,
         Double riscoMinimo,
         Double riscoRemoto,
         Double riscoPossivel,

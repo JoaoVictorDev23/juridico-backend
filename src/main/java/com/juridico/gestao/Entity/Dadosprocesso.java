@@ -18,9 +18,9 @@ public class Dadosprocesso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String status;
-    private Long numeroCnj;
+    private Integer numeroCnj;
     private String area;
     private String parteCliente;
     private String tipoCliente;

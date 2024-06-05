@@ -1,27 +1,29 @@
 package com.juridico.gestao.servicesImpl.DadosprocessosImpl;
 
-import com.juridico.gestao.DTO.DadosprocessoDTO;
-import com.juridico.gestao.DTO.ProvisaoDTO;
-import com.juridico.gestao.DTO.RiscosDTO;
+import com.juridico.gestao.DTO.*;
 import com.juridico.gestao.Entity.*;
-import com.juridico.gestao.repositories.DadosProcessosRepository;
-import com.juridico.gestao.repositories.ProvisaoRepository;
-import com.juridico.gestao.repositories.RiscosRepository;
-import com.juridico.gestao.services.Dadosprocessos.Dadosprocessos;
+import com.juridico.gestao.repositories.*;
+import com.juridico.gestao.services.Dadosprocessos.DadosprocessoService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
-public class DadosprocessosImpl implements Dadosprocessos {
+public class DadosprocessoServiceImpl implements DadosprocessoService {
 
     @Autowired
     DadosProcessosRepository dadosRepository;
+    @Autowired
     ProvisaoRepository provisaoRepository;
+    @Autowired
     RiscosRepository riscosRepository;
+    @Autowired
+    ExtrajudicialRepository extrajudicialRepository;
+    @Autowired
+    FinanceiroRepository financeiroRepository;
 
     @Transactional
     @Override
@@ -117,5 +119,43 @@ public class DadosprocessosImpl implements Dadosprocessos {
 
 
         provisaoRepository.save(provisaoexisting);
+    }
+
+    @Override
+    public void UpdateExtrajudicial(ExtrajudicialDTO extrajudicialDTO) {
+        Extrajudicial extrajudicialexisting = extrajudicialRepository.findByNumeroCnj(extrajudicialDTO.numeroCnj());
+        if(extrajudicialexisting == null){
+            throw new RuntimeException("Processo não encontrado!");
+        }
+        extrajudicialexisting.setAnoCobranca(extrajudicialDTO.anoCobranca());
+        extrajudicialexisting.setAnoQuitacao(extrajudicialDTO.anoQUitacao());
+        extrajudicialexisting.setModalidade(extrajudicialDTO.modalidade());
+        extrajudicialexisting.setEmpresa(extrajudicialDTO.empresa());
+        extrajudicialexisting.setAdversa(extrajudicialDTO.adversa());
+        extrajudicialexisting.setValorCobrado(extrajudicialDTO.valorCobrado());
+        extrajudicialexisting.setSaldoRecebidoAnterior(extrajudicialDTO.saldoRecebeidoAnterior());
+        extrajudicialexisting.setSaldoAreceber(extrajudicialDTO.saldoAreceber());
+        extrajudicialexisting.setDescontos(extrajudicialDTO.descontos());
+        extrajudicialexisting.setTotalRecebido(extrajudicialDTO.totalRecebido());
+        extrajudicialexisting.setStatus(extrajudicialDTO.status());
+
+        extrajudicialRepository.save(extrajudicialexisting);
+    }
+
+    @Override
+    public void updateFinanceiro(FinanceiroDTO financeiroDTO) {
+        Financeiro financeiroexisting = financeiroRepository.findByNumeroCnj(financeiroDTO.numeroCnj());
+        if(financeiroexisting == null){
+            throw new RuntimeException("Processo não localizado");
+        }
+        financeiroexisting.setContas(financeiroDTO.contas());
+        financeiroRepository.save(financeiroexisting);
+
+
+    }
+
+    @Override
+    public List<Dadosprocesso> getAllProcessos() {
+        return dadosRepository.findAll();
     }
 }

@@ -16,8 +16,9 @@ public class Extrajudicial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
+    private Integer numeroCnj;
     private String anoCobranca;
     private String anoQuitacao;
     private String modalidade;
@@ -31,6 +32,7 @@ public class Extrajudicial {
     private String status;
 
     public Extrajudicial(ExtrajudicialDTO extrajudicialDTO){
+        this.numeroCnj = extrajudicialDTO.numeroCnj();
         this.anoCobranca = extrajudicialDTO.anoCobranca();
         this.anoQuitacao = extrajudicialDTO.anoQUitacao();
         this.modalidade = extrajudicialDTO.modalidade();

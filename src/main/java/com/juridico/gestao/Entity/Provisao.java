@@ -18,10 +18,10 @@ public class Provisao {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true)
-    private Long numeroCnj;
+    private Integer numeroCnj;
 
     private String area;
     private String adverso;
