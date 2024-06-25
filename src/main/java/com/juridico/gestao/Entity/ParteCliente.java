@@ -1,31 +1,31 @@
 package com.juridico.gestao.Entity;
 
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "parcelas")
-public class Parcelas {
+@Table(name = "parte_cliente")
+public class ParteCliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String nome;
+    private String registro;
+    private String telefone;
+    private String endereco;
+    private String email;
 
     @ManyToOne
-    @JoinColumn(name = "conta_id")
+    @JoinColumn(name = "dadosprocesso_id")
     @JsonBackReference
-    private Conta conta;
 
-    private Integer numeroParcela;
-    private Double valorParcela;
-    private String vencimento;
-    private String status;
-    private Boolean pago;
-
+    private Dadosprocesso dadosprocesso;
 }

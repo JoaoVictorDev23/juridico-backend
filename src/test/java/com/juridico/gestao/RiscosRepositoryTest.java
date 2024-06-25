@@ -25,7 +25,7 @@ public class RiscosRepositoryTest {
     @Test
     @Transactional
     public void testFindByNumeroCnj() {
-        Integer numeroCnj = 654321;
+        String numeroCnj = "654321";
 
         // Primeiro, salve um risco no banco de dados de teste
         Riscos risco = new Riscos();

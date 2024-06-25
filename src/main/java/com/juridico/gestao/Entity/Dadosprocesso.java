@@ -1,13 +1,16 @@
 package com.juridico.gestao.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.juridico.gestao.DTO.DadosprocessoDTO;
+import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -20,48 +23,61 @@ public class Dadosprocesso {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String status;
-    private Integer numeroCnj;
+    private String numeroCnj;
+    private String pasta;
     private String area;
-    private String parteCliente;
     private String tipoCliente;
-    private String parteAdversa;
     private String setor;
-    private String objetivo;
+    private String objeto;
     private String comarca;
     private String instancia;
     private String observacao;
     private String statusProcesso;
     private Double valorCausa;
-    private Date dataProtocolo;
-    private Date dataBaixa;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataProtocolo;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataBaixa;
+
     private Double probabilidade;
     private String classificacao;
     private String emailCadastro;
     private String emailUpdate;
+    private String fase;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Riscos risco;
+    @OneToOne(mappedBy = "dadosprocesso", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Riscos riscos;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "dadosprocesso", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Provisao provisao;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "dadosprocesso", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Financeiro financeiro;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Extrajudicial extrajudicial;
+    @OneToMany(mappedBy = "dadosprocesso", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
 
+    private List<ParteCliente> parteCliente;
 
+    @OneToMany(mappedBy = "dadosprocesso", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
 
-    public Dadosprocesso(DadosprocessoDTO dadosprocessoDTO){
+    private List<ParteAdversa> parteAdversa;
+
+    public Dadosprocesso(DadosprocessoDTO dadosprocessoDTO) {
+        this.id = dadosprocessoDTO.id();
         this.status = dadosprocessoDTO.status();
         this.numeroCnj = dadosprocessoDTO.numeroCnj();
+        this.pasta = dadosprocessoDTO.pasta();
         this.area = dadosprocessoDTO.area();
-        this.parteCliente = dadosprocessoDTO.parteCliente();
         this.tipoCliente = dadosprocessoDTO.tipoCliente();
-        this.parteAdversa = dadosprocessoDTO.parteAdversa();
         this.setor = dadosprocessoDTO.setor();
-        this.objetivo = dadosprocessoDTO.objetivo();
+        this.objeto = dadosprocessoDTO.objeto();
         this.comarca = dadosprocessoDTO.comarca();
         this.instancia = dadosprocessoDTO.instancia();
         this.observacao = dadosprocessoDTO.observacao();
@@ -73,12 +89,27 @@ public class Dadosprocesso {
         this.classificacao = dadosprocessoDTO.classificacao();
         this.emailCadastro = dadosprocessoDTO.emailCadastro();
         this.emailUpdate = dadosprocessoDTO.emailUpdate();
-        this.risco = dadosprocessoDTO.risco();
+        this.fase = dadosprocessoDTO.fase();
+        this.riscos = dadosprocessoDTO.riscos();
         this.provisao = dadosprocessoDTO.provisao();
         this.financeiro = dadosprocessoDTO.financeiro();
-        this.extrajudicial = dadosprocessoDTO.extrajudicial();
+        this.parteCliente = dadosprocessoDTO.parteCliente();
+        this.parteAdversa = dadosprocessoDTO.parteAdversa();
 
+        if (this.riscos != null) {
+            this.riscos.setDadosprocesso(this);
+        }
+        if (this.provisao != null) {
+            this.provisao.setDadosprocesso(this);
+        }
+        if (this.financeiro != null) {
+            this.financeiro.setDadosprocesso(this);
+        }
+        if (this.parteCliente != null) {
+            this.parteCliente.forEach(pc -> pc.setDadosprocesso(this));
+        }
+        if (this.parteAdversa != null) {
+            this.parteAdversa.forEach(pa -> pa.setDadosprocesso(this));
+        }
     }
 }
-
-

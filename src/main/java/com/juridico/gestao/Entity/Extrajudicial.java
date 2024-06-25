@@ -1,8 +1,10 @@
 package com.juridico.gestao.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.juridico.gestao.DTO.ExtrajudicialDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +20,8 @@ public class Extrajudicial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer numeroCnj;
+    @NotNull
+    private String numeroCnj;
     private String anoCobranca;
     private String anoQuitacao;
     private String modalidade;
@@ -30,19 +33,28 @@ public class Extrajudicial {
     private Double descontos;
     private Double totalRecebido;
     private String status;
-
+    private String emailCadastro;
+    private String emailAtualizar;
+    private String pasta;
     public Extrajudicial(ExtrajudicialDTO extrajudicialDTO){
         this.numeroCnj = extrajudicialDTO.numeroCnj();
         this.anoCobranca = extrajudicialDTO.anoCobranca();
-        this.anoQuitacao = extrajudicialDTO.anoQUitacao();
+        this.anoQuitacao = extrajudicialDTO.anoQuitacao();
         this.modalidade = extrajudicialDTO.modalidade();
         this.empresa = extrajudicialDTO.empresa();
         this.adversa = extrajudicialDTO.adversa();
         this.valorCobrado = extrajudicialDTO.valorCobrado();
-        this.saldoRecebidoAnterior = extrajudicialDTO.saldoRecebeidoAnterior();
+        this.saldoRecebidoAnterior = extrajudicialDTO.saldoRecebidoAnterior();
         this.saldoAreceber = extrajudicialDTO.saldoAreceber();
         this.descontos = extrajudicialDTO.descontos();
         this.totalRecebido = extrajudicialDTO.totalRecebido();
         this.status = extrajudicialDTO.status();
+        this.emailCadastro = extrajudicialDTO.emailCadastro();
+        this.emailAtualizar = extrajudicialDTO.emailAtualizar();
+        this.pasta = extrajudicialDTO.pasta();
+
+
     }
+
+
 }

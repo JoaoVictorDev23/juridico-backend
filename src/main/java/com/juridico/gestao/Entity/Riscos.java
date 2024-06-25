@@ -1,5 +1,6 @@
 package com.juridico.gestao.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.juridico.gestao.DTO.RiscosDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +19,7 @@ public class Riscos {
     private Integer id;
 
     @Column(name="numero_cnj")
-    private Integer numeroCnj;
+    private String numeroCnj;
 
     private Double riscoMinimo;
 
@@ -32,6 +33,13 @@ public class Riscos {
 
     private Double riscoEstimado;
 
+    private Double valorCausaRisco;
+
+    @OneToOne
+    @JoinColumn(name = "dadosprocesso_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Dadosprocesso dadosprocesso;
+
     public Riscos(RiscosDTO riscosDTO){
         this.numeroCnj = riscosDTO.numeroCnj();
         this.riscoMinimo = riscosDTO.riscoMinimo();
@@ -40,6 +48,12 @@ public class Riscos {
         this.riscoProvavel = riscosDTO.riscoProvavel();
         this.riscoMaximo = riscosDTO.riscoMaximo();
         this.riscoEstimado = riscosDTO.riscoEstimado();
+        this.valorCausaRisco = riscosDTO.valorCausaRisco();
     }
-
+    public void setDadosprocesso(Dadosprocesso dadosprocesso) {
+        this.dadosprocesso = dadosprocesso;
+        if (dadosprocesso != null && dadosprocesso.getRiscos() != this) {
+            dadosprocesso.setRiscos(this);
+        }
+    }
 }

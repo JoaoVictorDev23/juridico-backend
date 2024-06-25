@@ -7,7 +7,7 @@ import java.util.List;
 
 public record FinanceiroDTO(
         Integer id,
-        Integer numeroCnj,
+        String numeroCnj,
         List<Conta> contas
 ) {
     public FinanceiroDTO(Financeiro financeiro){

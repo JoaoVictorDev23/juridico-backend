@@ -3,12 +3,15 @@ package com.juridico.gestao.controllers;
 import com.juridico.gestao.DTO.*;
 import com.juridico.gestao.Entity.Dadosprocesso;
 import com.juridico.gestao.Errors.ErrorResponse;
-import com.juridico.gestao.services.Dadosprocessos.DadosprocessoService;
+import com.juridico.gestao.services.DadosprocessoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -27,6 +30,16 @@ public class DadosprocessoController {
         } catch (RuntimeException e) {
             ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
             return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+
+    @GetMapping("/{numeroCnj}")
+    public ResponseEntity<DadosprocessoDTO> buscarPorNumeroCnj(@PathVariable String numeroCnj) {
+        try {
+            DadosprocessoDTO dadosprocessoDTO = dadosprocessoService.buscarPorNumeroCnj(numeroCnj);
+            return ResponseEntity.ok(dadosprocessoDTO);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.notFound().build();
         }
     }
 
@@ -78,18 +91,7 @@ public class DadosprocessoController {
         }
     }
 
-    @PutMapping("/extrajudicial")
-    public ResponseEntity updateExtraJudicial(@RequestBody @Valid ExtrajudicialDTO extrajudicialDTO){
-        try{
-            dadosprocessoService.UpdateExtrajudicial(extrajudicialDTO);
-            return ResponseEntity.ok().build();
-        }
-        catch (RuntimeException e){
-            ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
-            return ResponseEntity.badRequest().body(errorResponse);
-        }
 
-    }
 
     @PutMapping("/financeiro")
     public ResponseEntity updateFinanceiro(@RequestBody @Valid FinanceiroDTO financeiroDTO){
@@ -101,6 +103,14 @@ public class DadosprocessoController {
             ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
             return ResponseEntity.badRequest().body(errorResponse);
         }
+    }
+    @GetMapping("/excel")
+    public ResponseEntity<byte[]> downloadExcel() throws IOException {
+        byte[] bytes = dadosprocessoService.exportToExcel();
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=processos.xlsx")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(bytes);
     }
 
 

@@ -4,5 +4,5 @@ import com.juridico.gestao.Entity.Provisao;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProvisaoRepository extends JpaRepository<Provisao, Integer> {
-    Provisao findByNumeroCnj(Integer numeroCnj);
+    Provisao findByNumeroCnj(String numeroCnj);
 }

@@ -1,9 +1,10 @@
-package com.juridico.gestao.services.Dadosprocessos;
+package com.juridico.gestao.services;
 
 import com.juridico.gestao.DTO.*;
 import com.juridico.gestao.Entity.Dadosprocesso;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -18,9 +19,10 @@ public interface DadosprocessoService {
 
     void updateFinanceiro(FinanceiroDTO financeiroDTO);
 
-    void UpdateExtrajudicial(ExtrajudicialDTO extrajudicial);
 
+     DadosprocessoDTO buscarPorNumeroCnj(String numeroCnj);
     List<Dadosprocesso> getAllProcessos();
 
+    public byte[] exportToExcel() throws IOException;
 
 }
