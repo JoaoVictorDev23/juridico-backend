@@ -19,6 +19,7 @@ public class ParteAdversa {
     private String telefone;
     private String endereco;
     private String email;
+    private String patrono;
 
 
     @ManyToOne

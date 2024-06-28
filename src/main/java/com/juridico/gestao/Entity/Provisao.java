@@ -22,26 +22,27 @@ public class Provisao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+
     @Column(unique = true)
     private String numeroCnj;
-    private String area;
-    private String adverso;
-    private String status;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate inicio;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate fim;
-
     @Column(name="saldo_rescisao")
     private Double saldoRescisao;
     private String tempoTrabalhado;
     private Double fgts40;
-
-    @Column(name="aviso_previso")
+    @Column(name="aviso_previo")
     private Double avisoPrevio;
     private Double margem500;
-    @Column(name="valor_t_provisionado")
-    private Double valorTProvisionado;
+    @Column(name="valor_acordo")
+    private Double valorAcordo;
+    private Double totalSemAviso;
+    private Double totalComAviso;
+    private Double totalComAvisoMargem;
+    private Double valorDaCausa;
 
     @OneToOne
     @JoinColumn(name = "dadosprocesso_id", referencedColumnName = "id")
@@ -49,10 +50,7 @@ public class Provisao {
     private Dadosprocesso dadosprocesso;
 
     public Provisao(ProvisaoDTO provisaoDTO) {
-        this.numeroCnj = provisaoDTO.numeroCnj();
-        this.area = provisaoDTO.area();
-        this.adverso = provisaoDTO.adversa();
-        this.status = provisaoDTO.status();
+
         this.inicio = provisaoDTO.inicio();
         this.fim = provisaoDTO.fim();
         this.saldoRescisao = provisaoDTO.saldoRescisao();
@@ -60,7 +58,11 @@ public class Provisao {
         this.fgts40 = provisaoDTO.fgts40();
         this.avisoPrevio = provisaoDTO.avisoPrevio();
         this.margem500 = provisaoDTO.avisoPrevio();
-        this.valorTProvisionado = provisaoDTO.valorTProvisionado();
+        this.valorAcordo = provisaoDTO.valorAcordo();
+        this.valorDaCausa = provisaoDTO.valorDaCausa();
+        this.totalSemAviso = provisaoDTO.totalSemAviso();
+        this.totalComAviso = provisaoDTO.totalComAviso();
+        this.totalComAvisoMargem = provisaoDTO.totalComAvisoMargem();
     }
     public void setDadosprocesso(Dadosprocesso dadosprocesso) {
         this.dadosprocesso = dadosprocesso;

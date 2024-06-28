@@ -8,9 +8,6 @@ import java.util.Date;
 public record ProvisaoDTO(
         Integer id,
         String numeroCnj,
-        String area,
-        String adversa,
-        String status,
         LocalDate inicio,
         LocalDate fim,
         Double saldoRescisao,
@@ -18,14 +15,19 @@ public record ProvisaoDTO(
         Double fgts40,
         Double avisoPrevio,
         Double margem500,
-        Double valorTProvisionado
+        Double valorAcordo,
+        Double totalSemAviso,
+        Double totalComAviso,
+        Double totalComAvisoMargem,
+        Double valorDaCausa
+
 
 ) {
 
     public ProvisaoDTO(Provisao provisao){
-        this(   provisao.getId(), provisao.getNumeroCnj(), provisao.getArea(), provisao.getAdverso(),
-                provisao.getStatus(), provisao.getInicio(),provisao.getFim(),provisao.getSaldoRescisao(),
-                provisao.getTempoTrabalhado(), provisao.getFgts40(),
-                provisao.getAvisoPrevio(),provisao.getMargem500(), provisao.getValorTProvisionado());
+        this(   provisao.getId(),provisao.getNumeroCnj(), provisao.getInicio(),provisao.getFim(),provisao.getSaldoRescisao(),
+                provisao.getTempoTrabalhado(), provisao.getFgts40(),provisao.getAvisoPrevio(),
+                provisao.getMargem500(), provisao.getValorAcordo(), provisao.getTotalSemAviso(),
+                provisao.getTotalComAviso(), provisao.getTotalComAvisoMargem(), provisao.getValorDaCausa());
     }
 }

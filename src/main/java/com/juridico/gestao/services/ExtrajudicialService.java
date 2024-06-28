@@ -1,5 +1,6 @@
 package com.juridico.gestao.services;
 
+import com.juridico.gestao.DTO.DadosprocessoDTO;
 import com.juridico.gestao.DTO.ExtrajudicialDTO;
 import org.springframework.stereotype.Service;
 
@@ -11,8 +12,9 @@ public interface ExtrajudicialService {
 
     void createExtrajudicial (ExtrajudicialDTO extrajudicialDTO);
 
-    void UpdateExtrajudicial(ExtrajudicialDTO extrajudicial);
+    void updateExtrajudicial(ExtrajudicialDTO extrajudicial);
 
+    ExtrajudicialDTO buscarPorPasta(String pasta);
 
     List<ExtrajudicialDTO> getAllExtrajudicial();
 

@@ -127,15 +127,22 @@ public class DadosprocessoServiceImpl implements DadosprocessoService {
         if(provisaoexisting == null){
             throw new RuntimeException("Processo não localizado para a provisão");
         }
-        provisaoexisting.setArea(provisaoDTO.area());
-        provisaoexisting.setAdverso(provisaoDTO.adversa());
-        provisaoexisting.setStatus(provisaoDTO.status());
+
         provisaoexisting.setInicio(provisaoDTO.inicio());
         provisaoexisting.setFim(provisaoDTO.fim());
         provisaoexisting.setSaldoRescisao(provisaoDTO.saldoRescisao());
+        provisaoexisting.setTempoTrabalhado(provisaoDTO.tempoTrabalhado());
+
         provisaoexisting.setFgts40(provisaoDTO.fgts40());
         provisaoexisting.setAvisoPrevio(provisaoDTO.avisoPrevio());
         provisaoexisting.setMargem500(provisaoDTO.margem500());
+        provisaoexisting.setValorAcordo(provisaoDTO.valorAcordo());
+
+
+        provisaoexisting.setTotalComAviso(provisaoDTO.totalComAviso());
+        provisaoexisting.setTotalComAvisoMargem(provisaoDTO.totalComAvisoMargem());
+        provisaoexisting.setTotalSemAviso(provisaoDTO.totalSemAviso());
+        provisaoexisting.setValorDaCausa(provisaoDTO.valorDaCausa());
 
 
         provisaoRepository.save(provisaoexisting);
@@ -231,17 +238,14 @@ public class DadosprocessoServiceImpl implements DadosprocessoService {
             Provisao provisao = processo.getProvisao();
             if (provisao != null) {
                 row.createCell(26).setCellValue(provisao.getNumeroCnj());
-                row.createCell(27).setCellValue(provisao.getArea());
-                row.createCell(28).setCellValue(provisao.getAdverso());
-                row.createCell(29).setCellValue(provisao.getStatus());
-                row.createCell(30).setCellValue(provisao.getInicio() != null ? provisao.getInicio().toString() : "");
-                row.createCell(31).setCellValue(provisao.getFim() != null ? provisao.getFim().toString() : "");
-                row.createCell(32).setCellValue(provisao.getSaldoRescisao());
-                row.createCell(33).setCellValue(provisao.getTempoTrabalhado());
-                row.createCell(34).setCellValue(provisao.getFgts40());
-                row.createCell(35).setCellValue(provisao.getAvisoPrevio());
-                row.createCell(36).setCellValue(provisao.getMargem500());
-                row.createCell(37).setCellValue(provisao.getValorTProvisionado());
+
+                row.createCell(27).setCellValue(provisao.getInicio() != null ? provisao.getInicio().toString() : "");
+                row.createCell(28).setCellValue(provisao.getFim() != null ? provisao.getFim().toString() : "");
+                row.createCell(29).setCellValue(provisao.getSaldoRescisao());
+                row.createCell(30).setCellValue(provisao.getTempoTrabalhado());
+                row.createCell(31).setCellValue(provisao.getFgts40());
+                row.createCell(32).setCellValue(provisao.getAvisoPrevio());
+                row.createCell(33).setCellValue(provisao.getMargem500());
             }
 
             // Dados de Financeiro

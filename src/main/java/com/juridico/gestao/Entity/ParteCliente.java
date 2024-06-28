@@ -22,6 +22,7 @@ public class ParteCliente {
     private String telefone;
     private String endereco;
     private String email;
+    private String patrono;
 
     @ManyToOne
     @JoinColumn(name = "dadosprocesso_id")

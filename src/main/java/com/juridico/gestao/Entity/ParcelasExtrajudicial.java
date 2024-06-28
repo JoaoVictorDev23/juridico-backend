@@ -6,21 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "parcelas")
-public class Parcelas {
+@Table(name = "parcelas_extrajudicial")
+public class ParcelasExtrajudicial {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "conta_id")
-    @JsonBackReference
-    private Conta conta;
 
     private Integer numeroParcela;
     private Double valorParcela;
@@ -28,8 +26,18 @@ public class Parcelas {
     private String status;
     private Boolean pago;
 
+    @ManyToOne
+    @JoinColumn(name = "extrajudicial_id")
+    @JsonBackReference
+    private Extrajudicial extrajudicial;
 
 
 
+    public void setDadosExtrajudicial(Extrajudicial extrajudicial) {
+        this.extrajudicial = extrajudicial;
+        if (extrajudicial != null && !extrajudicial.getParcelas().contains(this)) {
+            extrajudicial.getParcelas().add(this);
+        }
+    }
 
 }

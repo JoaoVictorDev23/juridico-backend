@@ -35,7 +35,7 @@ public class ExtrajudicialController {
     @PutMapping
     public ResponseEntity updateExtraJudicial(@RequestBody @Valid ExtrajudicialDTO extrajudicialDTO){
         try{
-            extrajudicialService.UpdateExtrajudicial(extrajudicialDTO);
+            extrajudicialService.updateExtrajudicial(extrajudicialDTO);
             return ResponseEntity.ok().build();
         }
         catch (RuntimeException e){
@@ -52,6 +52,15 @@ public class ExtrajudicialController {
         } catch (RuntimeException e) {
             ErrorResponse errorResponse = new ErrorResponse(e.getMessage());
             return ResponseEntity.badRequest().body(errorResponse);
+        }
+    }
+    @GetMapping("/{pasta}")
+    public ResponseEntity<ExtrajudicialDTO> buscarporPasta(@PathVariable String pasta) {
+        try {
+            ExtrajudicialDTO extrajudicialDTO = extrajudicialService.buscarPorPasta(pasta);
+            return ResponseEntity.ok(extrajudicialDTO);
+        } catch (RuntimeException ex) {
+            return ResponseEntity.notFound().build();
         }
     }
 

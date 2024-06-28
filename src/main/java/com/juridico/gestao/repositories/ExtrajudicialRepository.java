@@ -4,5 +4,5 @@ import com.juridico.gestao.Entity.Extrajudicial;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ExtrajudicialRepository extends JpaRepository<Extrajudicial, Integer> {
-    Extrajudicial findByNumeroCnj(String numeroCnj);
+    Extrajudicial findByPasta(String pasta);
 }
